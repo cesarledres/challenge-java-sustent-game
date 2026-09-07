@@ -100,20 +100,23 @@ public class Main {
                         break;
                     }
 
-                    Usuario usuarioValidar = plataforma.buscarUsuarioPorId(idUsuarioValidar);
-                    if (usuarioValidar == null) {
+                    Optional<Usuario> resultadoValidacaoVideo = usuarioDAO.consultarPoId(idUsuarioValidar);
+                    if (resultadoValidacaoVideo.isPresent()){
+                        Usuario usuarioValidar = resultadoValidacaoVideo.get();
+                        if (videoValidar.getIdUsuario() == idUsuarioValidar) {
+                            bot.validarVideo(videoValidar, usuarioValidar);
+                            System.out.println("Vídeo validado com sucesso!");
+
+                        } else {
+                            System.out.println("Usuário não autorizado a validar este vídeo.");
+                        }
+                        break;
+                    } else {
                         System.out.println("Usuário não encontrado.");
                         break;
                     }
 
-                    if (videoValidar.getIdUsuario() == idUsuarioValidar) {
-                        bot.validarVideo(videoValidar, usuarioValidar);
-                        System.out.println("Vídeo validado com sucesso!");
 
-                    } else {
-                        System.out.println("Usuário não autorizado a validar este vídeo.");
-                    }
-                    break;
                 case 6:
                     System.out.println("---");
                     plataforma.gerarRanking();
