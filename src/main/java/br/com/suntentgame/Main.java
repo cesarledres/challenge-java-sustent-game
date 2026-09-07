@@ -1,19 +1,24 @@
 package br.com.suntentgame;
 
+import br.com.suntentgame.DAO.UsuarioDAO;
 import br.com.suntentgame.model.*;
 import br.com.suntentgame.service.BotValidacao;
 import br.com.suntentgame.service.Plataforma;
 import br.com.suntentgame.service.Ranking;
 
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         Plataforma plataforma = new Plataforma();
         BotValidacao bot = new BotValidacao();
         Ranking ranking = new Ranking(plataforma.getUsuarios());
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         int resposta = 0;
         while (resposta != 7) {
@@ -36,7 +41,8 @@ public class Main {
                     System.out.print("Digite o email do usuário: ");
                     String emailUsuario = scanner.next();
                     Usuario usuario = new Usuario(nomeUsuario, emailUsuario);
-                    plataforma.cadastrarUsuario(usuario);
+                    plataforma.cadastrarUsuario(usuario); // adicionar verificação para ver se ja tem um usuario com esse email.
+                    usuarioDAO.cadastrar(usuario);
                     break;
                 case 2:
                     System.out.println("---");
@@ -59,8 +65,9 @@ public class Main {
                     System.out.println("---");
                     System.out.print("Digite o ID do usuário para exibir detalhes: ");
                     int idUsuario = scanner.nextInt();
-                    Usuario usuarioDetalhes = plataforma.buscarUsuarioPorId(idUsuario);
-                    if (usuarioDetalhes != null) {
+                    Optional<Usuario> resultado = usuarioDAO.consultarPoId(idUsuario);
+                    if (resultado.isPresent()){
+                        Usuario usuarioDetalhes = resultado.get();
                         usuarioDetalhes.exibirDetalhes();
                     } else {
                         System.out.println("Usuário não encontrado.");
