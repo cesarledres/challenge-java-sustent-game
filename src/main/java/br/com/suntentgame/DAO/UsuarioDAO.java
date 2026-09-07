@@ -39,7 +39,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public boolean atualizar(Usuario usuario) throws SQLException {
         rows = 0;
-        String sql = "UPDATE T_USUARIO set nome=?, email=?, pontos=? WHERE id=?";
+        String sql = "UPDATE T_USUARIO set nm_usuario=?, email=?, pontos=? WHERE id_usuario=?";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -58,7 +58,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public boolean remover(Usuario usuario) throws SQLException {
         rows = 0;
-        String sql = "DELETE FROM T_USUARIO WHERE id=?";
+        String sql = "DELETE FROM T_USUARIO WHERE id_usuario=?";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
