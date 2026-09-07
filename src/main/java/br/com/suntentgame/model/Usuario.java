@@ -18,6 +18,13 @@ public class Usuario {
 		this.acessoRecompensa = false;
 	}
 
+	public Usuario(int idUsuario, String nome, String email, int pontos) {
+		this.idUsuario = idUsuario;
+		this.nome = nome;
+		this.email = email;
+		this.pontos = pontos;
+	}
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
