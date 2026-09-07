@@ -41,8 +41,10 @@ public class Main {
                     System.out.print("Digite o email do usuário: ");
                     String emailUsuario = scanner.next();
                     Usuario usuario = new Usuario(nomeUsuario, emailUsuario);
-                    plataforma.cadastrarUsuario(usuario); // adicionar verificação para ver se ja tem um usuario com esse email.
-                    usuarioDAO.cadastrar(usuario);
+                    boolean resultadoCadastro = usuarioDAO.cadastrar(usuario);
+                    if (resultadoCadastro) {
+                        plataforma.cadastrarUsuario(usuario);
+                    }
                     break;
                 case 2:
                     System.out.println("---");
