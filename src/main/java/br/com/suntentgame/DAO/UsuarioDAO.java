@@ -20,7 +20,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public boolean cadastrar(Usuario usuario) throws SQLException {
         rows = 0;
-        String sql = "INSERT INTO USUARIO (nome, email, pontos) VALUES(?,?,?)";
+        String sql = "INSERT INTO T_USUARIO (nm_usuario, email, pontos) VALUES(?,?,?)";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -38,7 +38,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public boolean atualizar(Usuario usuario) throws SQLException {
         rows = 0;
-        String sql = "UPDATE USUARIO set nome=?, email=?, pontos=? WHERE id=?";
+        String sql = "UPDATE T_USUARIO set nome=?, email=?, pontos=? WHERE id=?";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public boolean remover(Usuario usuario) throws SQLException {
         rows = 0;
-        String sql = "DELETE FROM USUARIO WHERE id=?";
+        String sql = "DELETE FROM T_USUARIO WHERE id=?";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -71,19 +71,19 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public Optional<Usuario> consultarPoId(Usuario usuario) throws SQLException {
-        String sql = "SELECT id, nome, email, pontos FROM USUARIO WHERE id=?";
+    public Optional<Usuario> consultarPoId(int idUsuario) throws SQLException {
+        String sql = "SELECT ID_USUARIO, NM_USUARIO, EMAIL, PONTOS FROM T_USUARIO WHERE ID_USUARIO=?";
         try{
             Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1,usuario.getIdUsuario());
+            stmt.setInt(1, idUsuario);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()){
                 Usuario usuario1 = new Usuario(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("email"),
-                        rs.getInt("pontos")
+                        rs.getInt("ID_USUARIO"),
+                        rs.getString("NM_USUARIO"),
+                        rs.getString("EMAIL"),
+                        rs.getInt("PONTOS")
                 );
                 return Optional.of(usuario1);
             }
