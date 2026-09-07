@@ -30,7 +30,8 @@ public class UsuarioDAO implements DAO<Usuario> {
             rows = stmt.executeUpdate();
             conn.close();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("Já existe um usuario com esse email.");
         }
         return rows == 1;
     }
