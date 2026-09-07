@@ -24,6 +24,12 @@ public class Usuario {
 	public String getNome() {
 		return nome;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public boolean isAcessoRecompensa() {
+		return acessoRecompensa;
+	}
 	public int getPontos() {
 		return pontos;
 	}
