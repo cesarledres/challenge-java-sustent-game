@@ -1,17 +1,23 @@
 package br.com.suntentgame.service;
 
+import br.com.suntentgame.DAO.UsuarioDAO;
 import br.com.suntentgame.model.Usuario;
 import br.com.suntentgame.model.Video;
 
+import java.sql.SQLException;
+
 public class BotValidacao {
 
-	public void validarVideo(Video video, Usuario usuario) {
+	public void validarVideo(Video video, Usuario usuario) throws SQLException {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+
 		String titulo = video.getTitulo().toLowerCase();
 
 		String[] palavrasEnergiaSolar = {"energia", "solar", "painel", "renovavel"};
 		for (String palavra : palavrasEnergiaSolar) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(85);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(85);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
@@ -24,6 +30,7 @@ public class BotValidacao {
 		for (String palavra : palavrasPlantarArvore) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(80);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(80);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
@@ -36,6 +43,7 @@ public class BotValidacao {
 		for (String palavra : palavrasTransporteSustentavel) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(70);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(70);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
@@ -48,6 +56,7 @@ public class BotValidacao {
 		for (String palavra : palavrasCompostagem) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(75);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(75);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
@@ -60,6 +69,7 @@ public class BotValidacao {
 		for (String palavra : palavrasReciclagem) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(95);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(95);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
@@ -72,6 +82,7 @@ public class BotValidacao {
 		for (String palavra : palavrasLimpezaAmbiental) {
 			if (titulo.contains(palavra)) {
 				usuario.adicionarPontos(90);
+				usuarioDAO.atualizar(usuario);
 				video.setPontuacao(90);
 				video.setStatus("APROVADO");
 				System.out.println("Vídeo aprovado!");
