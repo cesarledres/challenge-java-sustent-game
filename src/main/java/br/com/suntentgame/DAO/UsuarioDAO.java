@@ -1,0 +1,95 @@
+package br.com.suntentgame.DAO;
+
+import br.com.suntentgame.configuration.ConnectionOracle;
+import br.com.suntentgame.model.Usuario;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
+
+public class UsuarioDAO implements DAO<Usuario> {
+    private final ConnectionOracle conexao;
+    private int rows;
+
+    public UsuarioDAO(){
+        this.conexao = new ConnectionOracle();
+    }
+
+    @Override
+    public boolean cadastrar(Usuario usuario) throws SQLException {
+        rows = 0;
+        String sql = "INSERT INTO USUARIO (nome, email, pontos) VALUES(?,?,?)";
+        try{
+            Connection conn = conexao.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setInt(3, usuario.getPontos());
+            rows = stmt.executeUpdate();
+            conn.close();
+
+        } catch (Exception e) {
+        }
+        return rows == 1;
+    }
+
+    @Override
+    public boolean atualizar(Usuario usuario) throws SQLException {
+        rows = 0;
+        String sql = "UPDATE USUARIO set nome=?, email=?, pontos=? WHERE id=?";
+        try{
+            Connection conn = conexao.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setInt(3, usuario.getPontos());
+            stmt.setInt(4,usuario.getIdUsuario());
+            rows = stmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return rows == 1;
+    }
+
+    @Override
+    public boolean remover(Usuario usuario) throws SQLException {
+        rows = 0;
+        String sql = "DELETE FROM USUARIO WHERE id=?";
+        try{
+            Connection conn = conexao.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, usuario.getIdUsuario());
+            rows = stmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return  rows == 1;
+    }
+
+    @Override
+    public Optional<Usuario> consultarPoId(Usuario usuario) throws SQLException {
+        String sql = "SELECT id, nome, email, pontos FROM USUARIO WHERE id=?";
+        try{
+            Connection conn = conexao.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,usuario.getIdUsuario());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                Usuario usuario1 = new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getInt("pontos")
+                );
+                return Optional.of(usuario1);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
+}
