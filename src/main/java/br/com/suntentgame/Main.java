@@ -1,3 +1,5 @@
+package br.com.suntentgame;
+
 import br.com.suntentgame.model.*;
 import br.com.suntentgame.service.BotValidacao;
 import br.com.suntentgame.service.Plataforma;
