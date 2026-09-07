@@ -51,17 +51,17 @@ public class Main {
                     System.out.print("Digite o ID do usuário para vincular ao vídeo: ");
                     int idUsuarioVideo = scanner.nextInt();
                     scanner.nextLine();
-                    Usuario usuarioVideo = plataforma.buscarUsuarioPorId(idUsuarioVideo);
-                    if (usuarioVideo == null) {
+                    Optional<Usuario> resultadoCadastroVideo = usuarioDAO.consultarPoId(idUsuarioVideo);
+                    if (resultadoCadastroVideo.isPresent()){
+                        System.out.print("Digite o título do vídeo: ");
+                        String tituloVideo = scanner.nextLine();
+                        System.out.print("Digite a duração do vídeo em minutos: ");
+                        int duracaoVideo = scanner.nextInt();
+                        Video video = new Video(idUsuarioVideo, tituloVideo, duracaoVideo);
+                        plataforma.cadastrarVideo(video);
+                    } else {
                         System.out.println("Usuário não encontrado. Vídeo não cadastrado.");
-                        break;
                     }
-                    System.out.print("Digite o título do vídeo: ");
-                    String tituloVideo = scanner.nextLine();
-                    System.out.print("Digite a duração do vídeo em minutos: ");
-                    int duracaoVideo = scanner.nextInt();
-                    Video video = new Video(idUsuarioVideo, tituloVideo, duracaoVideo);
-                    plataforma.cadastrarVideo(video);
                     break;
                 case 3:
                     System.out.println("---");
