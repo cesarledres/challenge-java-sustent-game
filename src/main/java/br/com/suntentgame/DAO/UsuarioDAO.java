@@ -29,9 +29,8 @@ public class UsuarioDAO implements DAO<Usuario> {
             stmt.setInt(3, usuario.getPontos());
             rows = stmt.executeUpdate();
             conn.close();
-
         } catch (SQLException e) {
-            System.out.println("Já existe um usuario com esse email.");
+            e.printStackTrace();
         }
         return rows == 1;
     }
