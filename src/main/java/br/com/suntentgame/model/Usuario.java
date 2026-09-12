@@ -50,6 +50,18 @@ public class Usuario {
 	public void setAcessoRecompensa(boolean acessoRecompensa) {
 		this.acessoRecompensa = acessoRecompensa;
 	}
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
+	}
 
 	public void adicionarPontos(int pontuacao) {
 		this.pontos += pontuacao;
