@@ -1,13 +1,12 @@
 package br.com.suntentgame.service;
 
-import br.com.suntentgame.model.Usuario;
 import br.com.suntentgame.model.Video;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Plataforma {
-	private List<Video> videos;
+	private final List<Video> videos;
 
 	public Plataforma() {
 		videos = new ArrayList<>();
