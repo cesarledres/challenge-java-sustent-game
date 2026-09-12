@@ -1,7 +1,6 @@
 package br.com.suntentgame.model;
 
 public class Usuario {
-	private static int contadorUsuarios = 1;
 	private int idUsuario;
 	private String nome;
 	private String email;
@@ -13,7 +12,6 @@ public class Usuario {
 	}
 
 	public Usuario(String nome, String email) {
-		this.idUsuario = contadorUsuarios++;
 		this.nome = nome;
 		this.email = email;
 		this.pontos = 0;
@@ -37,13 +35,9 @@ public class Usuario {
 	public String getEmail() {
 		return email;
 	}
-	public boolean isAcessoRecompensa() {
-		return acessoRecompensa;
-	}
 	public int getPontos() {
 		return pontos;
 	}
-
 	public int getRanking() {
 		return ranking;
 	}
