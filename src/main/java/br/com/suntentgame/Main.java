@@ -21,15 +21,16 @@ public class Main {
         BotValidacao bot = new BotValidacao();
 
         int resposta = 0;
-        while (resposta != 7) {
+        while (resposta != 8) {
             System.out.println("=== MENU ===");
             System.out.println("1) Cadastrar usuário");
-            System.out.println("2) Cadastrar vídeo");
-            System.out.println("3) Exibir detalhes do usuário");
-            System.out.println("4) Exibir detalhes do vídeo");
-            System.out.println("5) Validar vídeo");
-            System.out.println("6) Gerar ranking");
-            System.out.println("7) Sair");
+            System.out.println("2) Excluir usuário");
+            System.out.println("3) Cadastrar vídeo");
+            System.out.println("4) Exibir detalhes do usuário");
+            System.out.println("5) Exibir detalhes do vídeo");
+            System.out.println("6) Validar vídeo");
+            System.out.println("7) Gerar ranking");
+            System.out.println("8) Sair");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
         
@@ -47,6 +48,19 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("---");
+                    System.out.println("Digite o id do usuário que deseja exclur: "); //adicionar senha para exclusao
+                    int idExcluir = scanner.nextInt();
+                    Optional<Usuario> resultadoExcluir = usuarioDAO.consultarPoId(idExcluir);
+                    if (resultadoExcluir.isPresent()){
+                        Usuario usuarioExcluir = resultadoExcluir.get();
+                        usuarioDAO.remover(usuarioExcluir);
+                        System.out.println("Usuário excluido com sucesso!");
+                    } else {
+                        System.out.println("Usuário não encontrado.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("---");
                     System.out.print("Digite o ID do usuário para vincular ao vídeo: ");
                     int idUsuarioVideo = scanner.nextInt();
                     scanner.nextLine();
@@ -62,7 +76,7 @@ public class Main {
                         System.out.println("Usuário não encontrado. Vídeo não cadastrado.");
                     }
                     break;
-                case 3:
+                case 4:
                     System.out.println("---");
                     System.out.print("Digite o ID do usuário para exibir detalhes: ");
                     int idUsuario = scanner.nextInt();
@@ -74,7 +88,7 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                     }
                     break;
-                case 4:
+                case 5:
                     System.out.println("---");
                     System.out.print("Digite o ID do vídeo para exibir detalhes: ");
                     int idVideo = scanner.nextInt();
@@ -85,7 +99,7 @@ public class Main {
                         System.out.println("Vídeo não encontrado.");
                     }
                     break;
-                case 5:
+                case 6:
                     System.out.println("---");
                     System.out.print("Digite o ID do vídeo para validar: ");
                     int idVideoValidar = scanner.nextInt();
@@ -114,13 +128,13 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                         break;
                     }
-                case 6:
+                case 7:
                     System.out.println("---");
                     List<Usuario> usuarios = usuarioDAO.listar();
                     Ranking ranking = new Ranking(usuarios);
                     plataforma.gerarRanking(ranking);
                     break;
-                case 7:
+                case 8:
                     System.out.println("---");
                     System.out.println("Saindo...");
                     scanner.close();
