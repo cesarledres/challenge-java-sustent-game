@@ -15,11 +15,10 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
         Plataforma plataforma = new Plataforma();
         BotValidacao bot = new BotValidacao();
-        Ranking ranking = new Ranking(plataforma.getUsuarios());
-
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         int resposta = 0;
         while (resposta != 7) {
@@ -115,11 +114,11 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                         break;
                     }
-
-
                 case 6:
                     System.out.println("---");
-                    plataforma.gerarRanking();
+                    List<Usuario> usuarios = usuarioDAO.listar();
+                    Ranking ranking = new Ranking(usuarios);
+                    plataforma.gerarRanking(ranking);
                     break;
                 case 7:
                     System.out.println("---");
@@ -129,7 +128,6 @@ public class Main {
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-            ranking.atualizarRanking();
             System.out.println("---");
         }
     }
