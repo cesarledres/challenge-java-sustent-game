@@ -2,12 +2,15 @@ package br.com.suntentgame.model;
 
 public class Usuario {
 	private static int contadorUsuarios = 1;
-	private final int idUsuario;
+	private int idUsuario;
 	private String nome;
 	private String email;
 	private int pontos;
 	private int ranking;
 	private boolean acessoRecompensa;
+
+	public Usuario() {
+	}
 
 	public Usuario(String nome, String email) {
 		this.idUsuario = contadorUsuarios++;
