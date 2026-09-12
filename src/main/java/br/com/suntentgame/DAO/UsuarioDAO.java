@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UsuarioDAO implements DAO<Usuario> {
@@ -91,5 +93,26 @@ public class UsuarioDAO implements DAO<Usuario> {
             throw new RuntimeException(e);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Usuario> listar() throws SQLException {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT ID_USUARIO, NM_USUARIO, EMAIL FROM T_USUARIO";
+        try(Connection conn = conexao.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while (rs.next()){
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(rs.getInt("ID_USUARIO"));
+                    usuario.setNome(rs.getString("NM_USUARIO"));
+                    usuario.setEmail(rs.getString("EMAIL"));
+                    usuario.setPontos(rs.getInt("PONTOS"));
+
+                    usuarios.add(usuario);
+                }
+                return usuarios;
+            }
+        }
     }
 }
