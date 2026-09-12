@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Ranking {
-	private List<Usuario> usuarios;
+	private final List<Usuario> usuarios;
 
 	public Ranking(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
@@ -29,12 +29,7 @@ public class Ranking {
 
 		for (int i = 0; i < limite; i++) {
 			Usuario usuario = usuarios.get(i);
-
-			System.out.println(
-					usuario.getRanking() + "º - "
-							+ usuario.getNome() + " - "
-							+ usuario.getPontos() + " pontos"
-			);
+			System.out.println(usuario.getRanking() + "º - " + usuario.getNome() + " - " + usuario.getPontos() + " pontos");
 		}
 	}
 }
