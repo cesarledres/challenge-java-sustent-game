@@ -112,6 +112,17 @@ public class Main {
                     Optional<Usuario> resultado = usuarioDAO.consultarPoId(idUsuario);
                     if (resultado.isPresent()){
                         Usuario usuarioDetalhes = resultado.get();
+
+                        List<Usuario> usuarios = usuarioDAO.listar();
+                        Ranking ranking = new Ranking(usuarios);
+                        ranking.calcularRanking();
+
+                        for (Usuario u : usuarios) {
+                            if (u.getIdUsuario() == usuarioDetalhes.getIdUsuario()) {
+                                usuarioDetalhes = u;
+                                break;
+                            }
+                        }
                         usuarioDetalhes.exibirDetalhes();
                     } else {
                         System.out.println("Usuário não encontrado.");
@@ -161,7 +172,8 @@ public class Main {
                     System.out.println("---");
                     List<Usuario> usuarios = usuarioDAO.listar();
                     Ranking ranking = new Ranking(usuarios);
-                    plataforma.gerarRanking(ranking);
+                    ranking.calcularRanking();
+                    ranking.exibirTop5();
                     break;
                 case 9:
                     System.out.println("---");
