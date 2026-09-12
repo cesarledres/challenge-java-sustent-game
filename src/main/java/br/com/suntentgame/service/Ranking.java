@@ -12,10 +12,10 @@ public class Ranking {
 		this.usuarios = usuarios;
 	}
 
-	public void atualizarRanking() {
-		usuarios.sort(Comparator.comparingInt(
-                Usuario::getPontos
-        ).reversed());
+	public void calcularRanking() {
+		usuarios.sort(
+				Comparator.comparingInt(Usuario::getPontos).reversed()
+		);
 
 		for (int i = 0; i < usuarios.size(); i++) {
 			Usuario usuario = usuarios.get(i);
@@ -24,14 +24,17 @@ public class Ranking {
 		}
 	}
 
-	public void ExibirTop5() {
-		atualizarRanking();
-
+	public void exibirTop5() {
 		int limite = Math.min(5, usuarios.size());
-		System.out.println("Top " + limite + " do Ranking:");
+
 		for (int i = 0; i < limite; i++) {
-			Usuario u = usuarios.get(i);
-			System.out.println((i + 1) + " - " + u.getNome() + " - " + u.getPontos() + " pontos");
+			Usuario usuario = usuarios.get(i);
+
+			System.out.println(
+					usuario.getRanking() + "º - "
+							+ usuario.getNome() + " - "
+							+ usuario.getPontos() + " pontos"
+			);
 		}
 	}
 }

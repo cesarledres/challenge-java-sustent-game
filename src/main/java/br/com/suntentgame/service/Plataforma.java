@@ -7,30 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Plataforma {
-	private List<Usuario> usuarios;
 	private List<Video> videos;
 
 	public Plataforma() {
-		usuarios = new ArrayList<>();
 		videos = new ArrayList<>();
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void cadastrarUsuario(Usuario usuario) {
-		usuarios.add(usuario);
-		System.out.println("Usuário cadastrado com sucesso! ID do usuário: " + usuario.getIdUsuario());
-	}
-
-	public Usuario buscarUsuarioPorId(int idUsuario) {
-		for (Usuario usuario : usuarios) {
-			if (usuario.getIdUsuario() == idUsuario) {
-				return usuario;
-			}
-		}
-		return null;
 	}
 
 	public void cadastrarVideo(Video video) {
@@ -45,9 +25,5 @@ public class Plataforma {
 			}
 		}
 		return null;
-	}
-
-	public void gerarRanking(Ranking ranking) {
-		ranking.ExibirTop5();
 	}
 }
