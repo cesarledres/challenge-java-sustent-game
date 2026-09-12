@@ -8,6 +8,7 @@ import br.com.suntentgame.service.Ranking;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -21,16 +22,17 @@ public class Main {
         BotValidacao bot = new BotValidacao();
 
         int resposta = 0;
-        while (resposta != 8) {
+        while (resposta != 9) {
             System.out.println("=== MENU ===");
             System.out.println("1) Cadastrar usuário");
-            System.out.println("2) Excluir usuário");
-            System.out.println("3) Cadastrar vídeo");
-            System.out.println("4) Exibir detalhes do usuário");
-            System.out.println("5) Exibir detalhes do vídeo");
-            System.out.println("6) Validar vídeo");
-            System.out.println("7) Gerar ranking");
-            System.out.println("8) Sair");
+            System.out.println("2) Editar usuário");
+            System.out.println("3) Excluir usuário");
+            System.out.println("4) Cadastrar vídeo");
+            System.out.println("5) Exibir detalhes do usuário");
+            System.out.println("6) Exibir detalhes do vídeo");
+            System.out.println("7) Validar vídeo");
+            System.out.println("8) Gerar ranking");
+            System.out.println("9) Sair");
             System.out.print("Escolha uma opção: ");
             resposta = scanner.nextInt();
         
@@ -48,6 +50,33 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("---");
+                    System.out.println("Digite o id do usuario que queira editar:");
+                    int idEditar = scanner.nextInt();
+                    Optional<Usuario> resultadoEditar = usuarioDAO.consultarPoId(idEditar);
+                    if (resultadoEditar.isPresent()) {
+                        Usuario usuarioEditar = resultadoEditar.get();
+
+                        System.out.println("Nome do usuario: " + usuarioEditar.getNome());
+                        System.out.println("Digite o novo nome do usuário (0 para pular): ");
+                        String novoNome = scanner.next();
+                        if (!novoNome.equals("0")){
+                            usuarioEditar.setNome(novoNome);
+                        }
+
+                        System.out.println("Email do usuário: " + usuarioEditar.getEmail());
+                        System.out.println("Digite o novo email do usuário (0 para pular): ");
+                        String novoEmail = scanner.next();
+                        if (!novoEmail.equals("0")) {
+                            usuarioEditar.setEmail(novoEmail);
+                        }
+
+                        usuarioDAO.atualizar(usuarioEditar);
+                    } else {
+                        System.out.println("Usuário não encontrado.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("---");
                     System.out.println("Digite o id do usuário que deseja exclur: "); //adicionar senha para exclusao
                     int idExcluir = scanner.nextInt();
                     Optional<Usuario> resultadoExcluir = usuarioDAO.consultarPoId(idExcluir);
@@ -59,7 +88,7 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                     }
                     break;
-                case 3:
+                case 4:
                     System.out.println("---");
                     System.out.print("Digite o ID do usuário para vincular ao vídeo: ");
                     int idUsuarioVideo = scanner.nextInt();
@@ -76,7 +105,7 @@ public class Main {
                         System.out.println("Usuário não encontrado. Vídeo não cadastrado.");
                     }
                     break;
-                case 4:
+                case 5:
                     System.out.println("---");
                     System.out.print("Digite o ID do usuário para exibir detalhes: ");
                     int idUsuario = scanner.nextInt();
@@ -88,7 +117,7 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                     }
                     break;
-                case 5:
+                case 6:
                     System.out.println("---");
                     System.out.print("Digite o ID do vídeo para exibir detalhes: ");
                     int idVideo = scanner.nextInt();
@@ -99,7 +128,7 @@ public class Main {
                         System.out.println("Vídeo não encontrado.");
                     }
                     break;
-                case 6:
+                case 7:
                     System.out.println("---");
                     System.out.print("Digite o ID do vídeo para validar: ");
                     int idVideoValidar = scanner.nextInt();
@@ -128,13 +157,13 @@ public class Main {
                         System.out.println("Usuário não encontrado.");
                         break;
                     }
-                case 7:
+                case 8:
                     System.out.println("---");
                     List<Usuario> usuarios = usuarioDAO.listar();
                     Ranking ranking = new Ranking(usuarios);
                     plataforma.gerarRanking(ranking);
                     break;
-                case 8:
+                case 9:
                     System.out.println("---");
                     System.out.println("Saindo...");
                     scanner.close();
