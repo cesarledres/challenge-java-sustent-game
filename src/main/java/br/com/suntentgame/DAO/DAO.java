@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DAO<T> {
-    public boolean cadastrar(T entidade)   throws SQLException;
-    public void atualizar(T entidade)  throws SQLException;
-    public void remover(T entidade)  throws SQLException;
-    public Optional<T> consultarPoId(int entidade)  throws SQLException;
-    public List<T> listar() throws SQLException;
+    boolean cadastrar(T entidade)   throws SQLException;
+    void atualizar(T entidade)  throws SQLException;
+    void remover(T entidade)  throws SQLException;
+    Optional<T> consultarPoId(int entidade)  throws SQLException;
+    List<T> listar() throws SQLException;
 }
