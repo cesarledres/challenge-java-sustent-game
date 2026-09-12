@@ -25,16 +25,26 @@ public class UsuarioDAO implements DAO<Usuario> {
         String sql = "INSERT INTO T_USUARIO (nm_usuario, email, pontos) VALUES(?,?,?)";
         try{
             Connection conn = conexao.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql, new String[]{"ID_USUARIO"});
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());
             stmt.setInt(3, usuario.getPontos());
             rows = stmt.executeUpdate();
-            conn.close();
+
+            if (rows == 1){
+                try (ResultSet rs = stmt.getGeneratedKeys()){
+                    if (rs.next()){
+                        int idGerado = rs.getInt(1);
+                        usuario.setIdUsuario(idGerado);
+                    }
+                }
+                conn.close();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rows == 1;
+        return false;
     }
 
     @Override

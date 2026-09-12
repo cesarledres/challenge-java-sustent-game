@@ -7,6 +7,7 @@ import br.com.suntentgame.service.Plataforma;
 import br.com.suntentgame.service.Ranking;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -41,9 +42,8 @@ public class Main {
                     System.out.print("Digite o email do usuário: ");
                     String emailUsuario = scanner.next();
                     Usuario usuario = new Usuario(nomeUsuario, emailUsuario);
-                    boolean resultadoCadastro = usuarioDAO.cadastrar(usuario);
-                    if (resultadoCadastro) {
-                        plataforma.cadastrarUsuario(usuario);
+                    if (usuarioDAO.cadastrar(usuario)){
+                        System.out.println("Usuario cadastrado com sucesso! Id do usuario: " + usuario.getIdUsuario());
                     }
                     break;
                 case 2:
