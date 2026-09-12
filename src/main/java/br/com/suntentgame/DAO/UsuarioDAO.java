@@ -20,7 +20,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     }
 
     @Override
-    public boolean cadastrar(Usuario usuario) throws SQLException {
+    public boolean cadastrar(Usuario usuario) {
         rows = 0;
         String sql = "INSERT INTO T_USUARIO (nm_usuario, email, pontos) VALUES(?,?,?)";
         try{
@@ -42,13 +42,13 @@ public class UsuarioDAO implements DAO<Usuario> {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return false;
     }
 
     @Override
-    public boolean atualizar(Usuario usuario) throws SQLException {
+    public void atualizar(Usuario usuario) {
         rows = 0;
         String sql = "UPDATE T_USUARIO set nm_usuario=?, email=?, pontos=? WHERE id_usuario=?";
         try{
@@ -63,11 +63,10 @@ public class UsuarioDAO implements DAO<Usuario> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return rows == 1;
     }
 
     @Override
-    public boolean remover(Usuario usuario) throws SQLException {
+    public void remover(Usuario usuario) {
         rows = 0;
         String sql = "DELETE FROM T_USUARIO WHERE id_usuario=?";
         try{
@@ -79,11 +78,10 @@ public class UsuarioDAO implements DAO<Usuario> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return  rows == 1;
     }
 
     @Override
-    public Optional<Usuario> consultarPoId(int idUsuario) throws SQLException {
+    public Optional<Usuario> consultarPoId(int idUsuario) {
         String sql = "SELECT ID_USUARIO, NM_USUARIO, EMAIL, PONTOS FROM T_USUARIO WHERE ID_USUARIO=?";
         try{
             Connection conn = conexao.getConnection();
