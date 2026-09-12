@@ -108,7 +108,7 @@ public class UsuarioDAO implements DAO<Usuario> {
     @Override
     public List<Usuario> listar() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT ID_USUARIO, NM_USUARIO, EMAIL FROM T_USUARIO";
+        String sql = "SELECT ID_USUARIO, NM_USUARIO, EMAIL, PONTOS FROM T_USUARIO";
         try(Connection conn = conexao.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
             try(ResultSet rs = stmt.executeQuery()){
