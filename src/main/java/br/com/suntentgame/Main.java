@@ -8,7 +8,6 @@ import br.com.suntentgame.service.Ranking;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -16,10 +15,9 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-
         Plataforma plataforma = new Plataforma();
         BotValidacao bot = new BotValidacao();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         int resposta = 0;
         while (resposta != 9) {
@@ -77,7 +75,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("---");
-                    System.out.println("Digite o id do usuário que deseja exclur: "); //adicionar senha para exclusao
+                    System.out.println("Digite o id do usuário que deseja exclur: ");
                     int idExcluir = scanner.nextInt();
                     Optional<Usuario> resultadoExcluir = usuarioDAO.consultarPoId(idExcluir);
                     if (resultadoExcluir.isPresent()){
