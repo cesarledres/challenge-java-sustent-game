@@ -47,8 +47,7 @@ public class Plataforma {
 		return null;
 	}
 
-	public void gerarRanking() {
-		Ranking ranking = new Ranking(usuarios);
+	public void gerarRanking(Ranking ranking) {
 		ranking.ExibirTop5();
 	}
 }
