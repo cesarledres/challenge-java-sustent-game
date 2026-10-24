@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "T_USUARIO") //VERIFICAR NOME DA TABELA NO BANCO
+@Table(name = "T_USUARIO")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
