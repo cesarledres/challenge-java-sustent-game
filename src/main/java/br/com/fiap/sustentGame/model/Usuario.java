@@ -2,6 +2,7 @@ package br.com.fiap.sustentGame.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "T_USUARIO")
@@ -13,13 +14,12 @@ public class Usuario {
     @NotBlank
     private String nome;
     private String email;
-    private Long pontos;
+    private Integer pontos = 0;
 
-    public Usuario(Long id, String nome, String email, Long pontos) {
+    public Usuario(Long id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.pontos = pontos;
     }
 
     public Usuario() {
@@ -49,11 +49,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public Long getPontos() {
+    public Integer getPontos() {
         return pontos;
     }
 
-    public void setPontos(Long pontos) {
+    public void setPontos(Integer pontos) {
         this.pontos = pontos;
     }
 }
