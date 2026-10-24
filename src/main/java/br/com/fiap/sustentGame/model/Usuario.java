@@ -1,7 +1,9 @@
 package br.com.fiap.sustentGame.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "T_USUARIO")
@@ -15,6 +17,9 @@ public class Usuario {
     @Column(name = "NM_USUARIO")
     private String nome;
     private String email;
+
+    @NotNull(message = "Os pontos não podem ser nulos")
+    @Min(value = 0, message = "Os pontos não podem ser negativos")
     private Integer pontos = 0;
 
     public Usuario(Long id, String nome, String email) {
