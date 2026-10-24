@@ -8,9 +8,11 @@ import jakarta.validation.constraints.NotBlank;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USUARIO")
     private Long id;
 
     @NotBlank
+    @Column(name = "NM_USUARIO")
     private String nome;
     private String email;
     private Integer pontos = 0;
