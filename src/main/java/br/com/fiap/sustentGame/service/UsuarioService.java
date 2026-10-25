@@ -60,7 +60,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
-                        "Aluno não encontrado com o ID " + id));
+                        "Usuário não encontrado com o ID " + id));
     }
 
     private UsuarioResponseDTO paraResponseDTO(Usuario usuario) {
