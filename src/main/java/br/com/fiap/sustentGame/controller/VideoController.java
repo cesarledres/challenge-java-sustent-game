@@ -75,6 +75,12 @@ public class VideoController {
         videoService.excluir(id);
     }
 
+    @PatchMapping("/{id}/validar")
+    @Operation(summary = "Validar vídeo e atualizar pontuação")
+    public VideoResponseDTO validar(@PathVariable Long id) {
+        return videoService.validar(id);
+    }
+
     @GetMapping("/teste")
     @Operation(summary = "Verificar funcionamento do servidor")
     public String teste() {
