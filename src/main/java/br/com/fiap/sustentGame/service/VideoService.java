@@ -6,6 +6,7 @@ import br.com.fiap.sustentGame.model.Usuario;
 import br.com.fiap.sustentGame.model.Video;
 import br.com.fiap.sustentGame.repository.UsuarioRepository;
 import br.com.fiap.sustentGame.repository.VideoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -88,5 +89,36 @@ public class VideoService {
                 video.getPontosRecebidos(),
                 video.getUsuario().getId()
         );
+    }
+
+    @Transactional
+    public VideoResponseDTO validar(Long id) {
+        Video video = buscarEntidadePorId(id);
+
+        if (!video.getStatus().equals("PENDENTE")) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Este vídeo já foi validado"
+            );
+        }
+
+        boolean aprovado = botValidacao.validarVideo();
+
+        if (aprovado) {
+            video.setStatus("APROVADO");
+            video.setPontosRecebidos(10);
+
+            Usuario usuario = video.getUsuario();
+            usuario.setPontos(usuario.getPontos() + 10);
+
+            usuarioRepository.save(usuario);
+        } else {
+            video.setStatus("REJEITADO");
+            video.setPontosRecebidos(0);
+        }
+
+        Video salvo = videoRepository.save(video);
+
+        return paraResponseDTO(salvo);
     }
 }
