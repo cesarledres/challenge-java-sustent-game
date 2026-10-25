@@ -102,7 +102,7 @@ A API disponibiliza operações relacionadas a:
 Consulta de usuário por identificador:
 
 ```http
-GET /usuarios/1
+GET /usuario/1
 ```
 
 Exemplo ilustrativo de resposta JSON:
@@ -159,7 +159,7 @@ Para executar a aplicação localmente, é necessário possuir:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/cesarledres/challenge-java-sustent-game.git
 ```
 
 Acesse a pasta do projeto:
