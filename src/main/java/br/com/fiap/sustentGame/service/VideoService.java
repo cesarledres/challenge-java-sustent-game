@@ -17,11 +17,14 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final BotValidacao botValidacao;
 
     public VideoService(VideoRepository videoRepository,
-                        UsuarioRepository usuarioRepository) {
+                        UsuarioRepository usuarioRepository,
+                        BotValidacao botValidacao) {
         this.videoRepository = videoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.botValidacao = botValidacao;
     }
 
     public VideoResponseDTO criar(VideoRequestDTO dados) {
